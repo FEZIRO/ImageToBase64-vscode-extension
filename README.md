@@ -1,4 +1,4 @@
-# ImageToBase64 - Visual Studio Code Extension</br>（ImageToBase64转换器-vscode插件）
+# ImageToBase64 - Visual Studio Code Extension</br>（图片转Base64编码转换器-vscode插件）
 
 
 ## Features（特性）
