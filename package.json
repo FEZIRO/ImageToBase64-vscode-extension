@@ -1,0 +1,52 @@
+{
+  "name": "image-to-base64",
+  "displayName": "Image To Base64",
+  "description": "imageToBase64图片转base64编码插件，支持批量转换图片",
+  "version": "1.0.0",
+  "keywords": [
+    "base64",
+    "img",
+    "image",
+    "imageToBase64",
+    "图片",
+    "图片转base64",
+    "图片编码"
+  ],
+  "publisher": "FEZIRO",
+  "engines": {
+    "vscode": "^1.41.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "icon/logo.png",
+  "activationEvents": [
+    "onCommand:extension.ImageToBase64"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.ImageToBase64",
+        "title": "Image To Base64"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.41.0",
+    "eslint": "^6.6.0",
+    "glob": "^7.1.5",
+    "mocha": "^6.2.2",
+    "typescript": "^3.6.4",
+    "vscode-test": "^1.2.2"
+  },
+  "dependencies": {
+    "di18n-translate": "0.0.9"
+  }
+}

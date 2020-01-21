@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ImageToBase64</title>
+    <link rel="stylesheet" href="index.css" />
+    <script src="../node_modules/di18n-translate/dist/di18n.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1 class="title">ImageToBase64（图片转Base64转换器）</h1>
+      <a class="chinese" href="#">中文</a>
+      <span>|</span>
+      <a class="english" href="#">English</a>
+    </header>
+    <p class="tips" i18n-content="tips"></p>
+    <div class="upload-file-btn" >
+      <span i18n-content="importBtn"></span>
+      <input type="file" id="FileInput" accept="image/*" multiple="multiple" />
+    </div>
+    <div class="upload-file-btn clear-btn" >
+      <span i18n-content="clearBtn"></span>
+    </div>
+    <div class="file-container"></div>
+    <div class="help">
+      <p i18n-content="help_1"></p>
+      <p i18n-content="help_2"></p>
+      <p i18n-content="help_3"></p>
+    </div>
+
+    <script type="text/javascript">
+      const $fileInput = $('#FileInput')
+      const $base64 = $('.file-base64')
+      const $imgPreview = $('.file-preview img')
+      const $fileInfo = $('.file-info')
+      const $clearBtn = $('.clear-btn')
+      const $fileContainer = $('.file-container')
+      const $chineseBtn = $('.chinese');
+      const $englishBtn = $('.english');
+      const LOCALE_ZH = 'zh';
+      const LOCALE_EN = 'en';
+      let di18n;
+
+      $fileInput.onchange = function() {
+        imgToBase64()
+      }
+
+      $clearBtn.onclick = function() {
+        $fileContainer.innerHTML = ''
+      }
+
+      $chineseBtn.onclick = function(){
+        translate(LOCALE_ZH);
+      }
+
+      $englishBtn.onclick = function(){
+        translate(LOCALE_EN)
+      }
+
+      translate(LOCALE_ZH);
+      function translate(LOCALE){
+        di18n = new DI18n({
+          locale: LOCALE,
+          isReplace: true, 
+          messages: {
+            en: {
+              tips: 'Click import button to import image. PNG, GIF, JPG, BMP or other image formats support. Image bulk import support',
+              importBtn:'import',
+              clearBtn:'clear',
+              help_1:'1. Using in CSS: background-image:url("data:image/png;base64,iVBORw0KGgo...")',
+              help_2:'2. Using in HTML: &lt;img src="data:image/png;base64,iVBORw0KGgo..." />',
+              help_3:'3. Using in WeChat Miniprogram\'s wxss file: background-image:url("data:image/png;base64,iVBORw0KGgo...")',
+              copyBtn:'copy',
+              transformTips:'Converting...(It is suggested that the size of picture should not be too large) '
+            },
+            zh: {
+              tips: '点击导入图片可生成base64编码，支持 PNG、GIF、JPG、BMP等图片格式，可批量导入图片',
+              importBtn:'导入图片',
+              clearBtn:'清除',
+              help_1:'1、CSS中使用：background-image:url("data:image/png;base64,iVBORw0KGgo...")，在url()里填写base64编码即可;',
+              help_2:'2、HTML中使用：&lt;img src="data:image/png;base64,iVBORw0KGgo..." />，在src后填base64编码即可',
+              help_3:'3、微信小程序中wxss使用：background-image:url("data:image/png;base64,iVBORw0KGgo...")，在url()里填写base64编码即可。由于微信小程序的样式文件wxss不支持本地图片，只支持base64编码和网络地址的图片，所以此工具非常适用于微信小程序开发',
+              copyBtn:'复制',
+              transformTips:'转换中...（建议图片不宜过大）'
+            }
+          }
+        })
+      }
+
+      function imgToBase64() {
+        for (let item of $fileInput.files) {
+          if (!/image\/\w+/.test(item.type)) {
+            renderImgItem('请确保文件类型为图片格式！', '')
+          } else {
+            let r = new FileReader()
+            r.readAsDataURL(item)
+            r.onload = function() {
+              let fileInfo = `${item.name} ( ${Math.round(
+                (r.result.length / 1024) * 1000
+              ) / 1000} kb )`
+              let base64Url = r.result
+              renderImgItem(fileInfo, base64Url)
+            }
+          }
+        }
+      }
+
+      function renderImgItem(fileInfo, base64Url) {
+        let tempNode = document.createElement('div')
+        tempNode.style.marginTop = '20px';
+        let tempStr = `<section class="file-section">
+          <div class="file-info">${fileInfo}</div>
+          <div class="file-preview"><img/></div>
+          <textarea class="file-base64" i18n-placeholder="transformTips">$t("transformTips")</textarea>
+          <div class="copy-btn" i18n-content="copyBtn">$t("copyBtn")</div>
+        </section>`;
+        let str = di18n.$html(tempStr)
+        tempNode.innerHTML = str
+        $fileContainer.appendChild(tempNode)
+        setTimeout(() => {
+          tempNode.children[0].children[1].children[0].src = base64Url
+          tempNode.children[0].children[2].value = base64Url
+          tempNode.children[0].children[3].onclick = function() {
+            tempNode.children[0].children[2].select()
+            document.execCommand('copy')
+          }
+        }, 500)
+      }
+
+      function $(element) {
+        return document.querySelector(element)
+      }
+    </script>
+  </body>
+</html>
