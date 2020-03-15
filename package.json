@@ -2,7 +2,7 @@
   "name": "image-to-base64",
   "displayName": "Image To Base64",
   "description": "imageToBase64图片转base64编码插件，支持批量转换图片",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "base64",
     "img",
@@ -14,7 +14,7 @@
   ],
   "publisher": "FEZIRO",
   "engines": {
-    "vscode": "^1.41.0"
+    "vscode": "^1.42.1"
   },
   "categories": [
     "Other"
