@@ -8,7 +8,7 @@
 
 ## How To Use（使用说明）
 
-* Using in windows: press `Shift+Alt+P` to open the command panel, search `imageToBase64` and open it!
+* Using in windows: press `Ctrl+Alt+P` to open the command panel, search `imageToBase64` and open it!
   </br>(windows下按 `Shift+Alt+P`  打开命令面板，输入搜索imageToBase64打开即可)
 * Using in macOS: press `Shift+Command+P` to open the command panel, search `imageToBase64` and open it!
   </br>(Mac下按  `Shift+Command+P`  打开命令面板，输入搜索imageToBase64打开即可)
